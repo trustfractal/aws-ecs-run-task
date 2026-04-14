@@ -1,6 +1,5 @@
-const core = require("@actions/core");
-
-const { ECS, waitUntilTasksStopped } = require("@aws-sdk/client-ecs");
+import * as core from "@actions/core";
+import { ECS, waitUntilTasksStopped } from "@aws-sdk/client-ecs";
 
 const ecs = new ECS();
 
@@ -78,7 +77,7 @@ const main = async () => {
     core.debug("Waiting for task to finish...");
     await waitUntilTasksStopped({
       client: ecs,
-      maxWaitTime: 6000,
+      maxWaitTime: 300, // 5 minutes
     }, {
       cluster,
       tasks: [taskArn],
